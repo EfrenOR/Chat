@@ -84,14 +84,17 @@ socket.on('chat:typing', (datos)=>{
 
 //Recibe imagen del servidor y los muestra en el HTML
 socket.on('Show:Image', function(base64image){
-  output.innerHTML += `<p><img src = "${base64image}" /></p>`
+  output.innerHTML += `<div><p><img src = "${base64image}" /></p></div>
+
+    <p id="time">${FH.toLocaleString('en-MX', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+  `
 });
 
 //Recibe el usuario que mando el archivo y los muestra en el chat
 socket.on('Show:File', function(datos){
   actions.innerHTML = "";
   output.innerHTML += `<p>
-    <strong>${datos.username}</strong>
+    <strong>${datos.username}</strong>:
   </p>`
 });
 
@@ -102,5 +105,7 @@ socket.on('Chat:File', function(url){
   /*Para poder acceder al la direccion de img en este caso sería: http://OUR_IP:3000/uploads/NAME_IMG
     es necesario establecer un ruta en el servidor de .get
   */
-  output.innerHTML += `<p><a href="${url}" download>Descargar Fichero : ${url}</a></p>`;
+  output.innerHTML += `<div><p><a href="${url}" download>Descargar Fichero : ${url}</a></p></div>
+    <p id="time">${FH.toLocaleString('en-MX', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+  `;
 })

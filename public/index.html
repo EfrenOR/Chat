@@ -4,29 +4,43 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width = device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Poppins&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <title>Chat Socket.IO</title>
+    <title>Chat Socket</title>
   </head>
   <body>
 
     <div id="chat-container">
-      <input type="text" id="username" placeholder="Username">
+
+      <div id="chat-header">
+        <figure>
+          <img src="img/icon_user.svg" alt="user">
+        </figure>
+        <input type="text" id="username" placeholder="Username">
+      </div>
+
       <div id="chat-window">
+        <!-- Div donde se mostraran los mensajes -->
         <div id="output"></div>
+
+        <!-- Div donde se mostraran las acciones de los otros clientes como "typing" -->
         <div id="actions"></div>
       </div>
-      <input type="text" id="message" placeholder="Message">
-      
-      <div class="file-select" id="src-file1" >
-        <input type="file" name="src-file1" aria-label="Archivo" id="uploadImage">
+
+      <div id="chat-select-files">
+        <div class="file-select" id="src-file1" >
+          <input type="file" name="src-file1" aria-label="Archivo" id="uploadImage">
+        </div>
+
+        <div class="file-select" id="src-file2" >
+          <input type="file" name="src-file2" aria-label="Archivo" id="uploadFile">
+        </div>
       </div>
 
-      <div class="file-select" id="src-file2" >
-        <input type="file" name="src-file2" aria-label="Archivo" id="uploadFile">
+      <div id="chat-write-message">
+        <input type="text" id="message" placeholder="Write your message here...">
+        <button type="button" name="button" id="send"><img src="img/icon-send.png" alt=""></button>
       </div>
-
-      <button type="button" name="button" id="send">Send</button>
 
     </div>
 
