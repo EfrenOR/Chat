@@ -33,29 +33,33 @@ const io = SocketIO(server); //El socket requiere un servidor ya inicilizado por
 //el app el cual tiene la configuraciones del servidor y este esta almacenado en
 //la variable server.
 
-
+var name = "";
 io.on('connection', (socket)=>{
   //Para detectar cuando un cliente se conecta al socket
   console.log('New Connection', socket.id);
 
   socket.on('Chat:Message', (datos)=>{
       //Al usar io.sockets.emit estamos mandando datos a todos los clientes incluyendome
+      console.log(`Username: ${datos.username}  ||  Message: ${datos.message}`);
       io.sockets.emit('Chat:Message:Server', datos);
   })
 
   socket.on('chat:typing', (datos)=>{
     //Al usar socket.broadcast.emit estamos mandando datos a todos los servidores EXECEPTO A MI MISMO.
     socket.broadcast.emit('chat:typing', datos);
+    console.log(`Username: ${datos.username} is typing`);
   })
 
   socket.on('chat:typing:mobile', (datos)=>{
     //Al usar socket.broadcast.emit estamos mandando datos a todos los servidores EXECEPTO A MI MISMO.
     socket.broadcast.emit('chat:typing', datos);
+    console.log(`Username: ${datos.username} is typing`);
   })
 
 
-  socket.on('Chat:image', (image)=>{
-    io.sockets.emit('Show:Image', image);
+  socket.on('Chat:image', (datos)=>{
+    io.sockets.emit('Show:Image', datos.image);
+    console.log(`Username: ${datos.username} sent image`);
   })
 
 
@@ -66,9 +70,17 @@ io.on('connection', (socket)=>{
   uploader.on("saved", function(event){
       io.sockets.emit('Chat:File', event.file.name);
       name = event.file.name;
+
   });
 
+  socket.on('Chat:FileUser', (datos)=>{
+    console.log(`Username: ${datos.username} sent a file`);
+    io.sockets.emit('Show:File', datos);
+  })
+
 });
+
+
 
 //RUTAS
 

@@ -42,7 +42,7 @@ $(function(){
     var reader = new FileReader();
     reader.onload = function(evt){
       //Enviarmos la imagen
-      socket.emit('Chat:image', evt.target.result);
+      socket.emit('Chat:image', { username:username.value, image: evt.target.result});
     }
     reader.readAsDataURL(file);
   });
@@ -54,7 +54,14 @@ $(function(){
 //Para su instalacion ejecutar: npm install --save socketio-file-upload
 
 var uploader = new SocketIOFileUpload(socket);
-uploader.listenOnInput(document.getElementById('uploadFile'));//Escucha el evento, es decir al seleccionar un fichero y lo manda al servidor
+uploader.listenOnInput(uploadFile);//Escucha el evento, es decir al seleccionar un fichero y lo manda al servidor
+
+
+$(function(){
+  $(uploadFile).on('change', function(e){
+      socket.emit('Chat:FileUser', { username:username.value});
+  });
+});
 
 
 //////ESCUCHAR O RECIBIR INFORMACIÓN DEL SERVIDOR///////////////////////////////////////////////////
@@ -76,6 +83,14 @@ socket.on('chat:typing', (datos)=>{
 //Recibe imagen del servidor y los muestra en el HTML
 socket.on('Show:Image', function(base64image){
   output.innerHTML += `<p><img src = "${base64image}" /></p>`
+});
+
+//Recibe el usuario que mando el archivo y los muestra en el chat
+socket.on('Show:File', function(datos){
+  actions.innerHTML = "";
+  output.innerHTML += `<p>
+    <strong>${datos.username}</strong>
+  </p>`
 });
 
 //Recibe unicamente el nombre del archivo que el cliente mando
