@@ -19,3 +19,20 @@ const server = app.listen(app.get('port'), '192.168.1.65', ()=>{
 //__dirname es del module Path y es lo mismo que la direccion de este proyecto -> C:\Users\Efren\Downloads\Chat V1
 app.use(express.static(path.join(__dirname, 'public')));//Esto es para llamar todos los archivos estaticos como
 //html, css, javascript etc.
+
+
+/////////////////////////////////////////////////////////////////////////////////
+//WEBSOCKETS
+
+const SocketIO = require('socket.io');//Solcitamos el modulo para el socket
+const io = SocketIO(server); //El socket requiere un servidor ya inicilizado por ende le pasamos
+//el app el cual tiene la configuraciones del servidor y este esta almacenado en
+//la variable server.
+
+
+io.on('connection', (socket)=>{
+  //Para detectar cuando un cliente se conecta al socket
+  console.log('New Connection', socket.id);
+
+
+});
