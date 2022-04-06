@@ -34,5 +34,19 @@ io.on('connection', (socket)=>{
   //Para detectar cuando un cliente se conecta al socket
   console.log('New Connection', socket.id);
 
+  socket.on('Chat:Message', (datos)=>{
+      //Al usar io.sockets.emit estamos mandando datos a todos los clientes incluyendome
+      io.sockets.emit('Chat:Message:Server', datos);
+  })
+
+  socket.on('chat:typing', (datos)=>{
+    //Al usar socket.broadcast.emit estamos mandando datos a todos los servidores EXECEPTO A MI MISMO.
+    socket.broadcast.emit('chat:typing', datos);
+  })
+
+  socket.on('chat:typing:mobile', (datos)=>{
+    //Al usar socket.broadcast.emit estamos mandando datos a todos los servidores EXECEPTO A MI MISMO.
+    socket.broadcast.emit('chat:typing', datos);
+  })
 
 });
