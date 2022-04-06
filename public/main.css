@@ -25,6 +25,7 @@ body{
   color: #aaa;
   padding: 14px 0;
   margin: 0 20px;
+  text-align: left;
 }
 
 #output img{
@@ -34,12 +35,20 @@ body{
   width: 30%;
 }
 
+#output a{
+  color: #616161;
+  padding: 44px 0;
+  margin: 0 20px;
+}
+
+
 #actions p{
   padding: 14px 0;
   margin: 0 20px;
   border-bottom: 1px solid #e9e9e9;
   color: 555;
 }
+
 
 input{
   padding: 10px 20px;

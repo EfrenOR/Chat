@@ -49,6 +49,13 @@ $(function(){
 });
 
 
+//Función para subir cualquier fichero y mostrar un link en cada servidor para descargar dicho Fichero
+//Estas funciones fueron sacadas de: https://github.com/sffc/socketio-file-upload
+//Para su instalacion ejecutar: npm install --save socketio-file-upload
+
+var uploader = new SocketIOFileUpload(socket);
+uploader.listenOnInput(document.getElementById('uploadFile'));//Escucha el evento, es decir al seleccionar un fichero y lo manda al servidor
+
 
 //////ESCUCHAR O RECIBIR INFORMACIÓN DEL SERVIDOR///////////////////////////////////////////////////
 
@@ -66,8 +73,17 @@ socket.on('chat:typing', (datos)=>{
 })
 
 
-
 //Recibe imagen del servidor y los muestra en el HTML
 socket.on('Show:Image', function(base64image){
-  output.innerHTML = `<img src = "${base64image}" />`
+  output.innerHTML += `<p><img src = "${base64image}" /></p>`
 });
+
+//Recibe unicamente el nombre del archivo que el cliente mando
+socket.on('Chat:File', function(url){
+  //Muestro en html una etiqueta <a> cuando un cliente mande un fichero
+
+  /*Para poder acceder al la direccion de img en este caso sería: http://OUR_IP:3000/uploads/NAME_IMG
+    es necesario establecer un ruta en el servidor de .get
+  */
+  output.innerHTML += `<p><a href="${url}" download>Descargar Fichero : ${url}</a></p>`;
+})

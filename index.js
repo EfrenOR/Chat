@@ -3,15 +3,19 @@
 const path = require('path');//Para poder trabajar con rutas
 const express = require('express');//IMPORTAMOS EXPRESS
 const app = express();//App encargado de tener todas las configuraciones del SERVIDOR
+const siofu = require("socketio-file-upload");//Importo este modulo para poder subir ficheros desde los clientes
+
 
 //SETTINGS
 app.set('port', process.env.PORT || 3000);
+
 
 //TO START THE SERVER
 //I put my IP to connect other devices with this SERVER
 const server = app.listen(app.get('port'), '192.168.1.65', ()=>{
   console.log("Server on port:", app.get('port'));
 });
+app.use(siofu.router);
 
 
 //STATIC FILES para que el servidor llame a los archivos como html, css y javascript
@@ -54,4 +58,23 @@ io.on('connection', (socket)=>{
     io.sockets.emit('Show:Image', image);
   })
 
+
+  var uploader = new siofu();
+  uploader.dir = path.join(__dirname, 'uploads');
+  uploader.listen(socket);
+
+  uploader.on("saved", function(event){
+      io.sockets.emit('Chat:File', event.file.name);
+      name = event.file.name;
+  });
+
+});
+
+//RUTAS
+
+/*Esta ruta es para poder acceder a una img especifica del la carpeta uploads y permitir a los clientes
+  descargar ficheros
+*/
+app.get('/:uploads', function(req, res){
+    res.sendFile( __dirname + `/uploads/${name}` );
 });
