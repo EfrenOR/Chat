@@ -49,4 +49,9 @@ io.on('connection', (socket)=>{
     socket.broadcast.emit('chat:typing', datos);
   })
 
+
+  socket.on('Chat:image', (image)=>{
+    io.sockets.emit('Show:Image', image);
+  })
+
 });

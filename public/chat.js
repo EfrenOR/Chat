@@ -10,7 +10,7 @@ let username = document.getElementById('username');
 let btn = document.getElementById('send');
 let output = document.getElementById('output');
 let actions = document.getElementById('actions');
-let upload = document.getElementById('uploadImage');
+let uploadImage = document.getElementById('uploadImage');
 let uploadFile = document.getElementById('uploadFile');
 
 //////MANDAR INFORMACIÓN AL SERVIDOR///////////////////////////////////////////////////
@@ -35,7 +35,18 @@ message.addEventListener('keydown', ()=>{
   socket.emit('chat:typing:mobile', {username: username.value});
 })
 
-
+//Función para poder subir una imagen mandarla al servidor y que se muestre en los todos los clientes (incluyendome)
+$(function(){
+  $(uploadImage).on('change', function(e){
+    var file = e.originalEvent.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(evt){
+      //Enviarmos la imagen
+      socket.emit('Chat:image', evt.target.result);
+    }
+    reader.readAsDataURL(file);
+  });
+});
 
 
 
@@ -53,3 +64,10 @@ socket.on('Chat:Message:Server', (datos)=>{
 socket.on('chat:typing', (datos)=>{
   actions.innerHTML = `<p><em>${datos.username} is typing a message</em></p>`;
 })
+
+
+
+//Recibe imagen del servidor y los muestra en el HTML
+socket.on('Show:Image', function(base64image){
+  output.innerHTML = `<img src = "${base64image}" />`
+});
