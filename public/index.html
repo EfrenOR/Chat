@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+    <title>Chat Socket.IO</title>
+  </head>
+  <body>
+
+    <div id="chat-container">
+      <input type="text" id="username" placeholder="Username">
+      <div id="chat-window">
+        <div id="output"></div>
+        <div id="actions"></div>
+      </div>
+      <input type="text" id="message" placeholder="Message">
+      <div class="file-select" id="src-file1" >
+        <input type="file" name="src-file1" aria-label="Archivo" id="uploadImage">
+      </div>
+
+      <div class="file-select" id="src-file2" >
+        <input type="file" name="src-file2" aria-label="Archivo" id="uploadFile">
+      </div>
+
+      <button type="button" name="button" id="send">Send</button>
+
+    </div>
+
+    <script type="text/javascript" src="chat.js"></script>
+  </body>
+</html>
