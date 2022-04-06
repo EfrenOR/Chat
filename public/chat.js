@@ -67,11 +67,13 @@ $(function(){
 //////ESCUCHAR O RECIBIR INFORMACIÓN DEL SERVIDOR///////////////////////////////////////////////////
 
 //Recibe el mensaje renviado por el Servidor para que se muestre en los clientes
+var FH = new Date();
+
 socket.on('Chat:Message:Server', (datos)=>{
   actions.innerHTML = "";
-  output.innerHTML += `<p>
-    <strong>${datos.username}</strong>:${datos.message}
-  </p>`
+  output.innerHTML += `<p><strong>${datos.username}</strong>: </p><div><p>
+    ${datos.message}
+  </p></div> <p id="time">${FH.toLocaleString('en-MX', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>` //Para mostrar la hora en que se envian los mensajes en formato 12hrs
 });
 
 //Recibe el usuario que esta escribiendo del servidor para que se muestre en los clientes (Menos al que esta escribiendo)
