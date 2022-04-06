@@ -58,7 +58,7 @@ io.on('connection', (socket)=>{
 
 
   socket.on('Chat:image', (datos)=>{
-    io.sockets.emit('Show:Image', datos.image);
+    io.sockets.emit('Show:Image', datos);
     console.log(`Username: ${datos.username} sent image`);
   })
 

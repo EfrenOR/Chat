@@ -7,7 +7,10 @@
   margin: 0;
   padding: 0;
   font-family: 'Nunito', sans-serif;
+}
 
+body{
+  background-color: #d4ddfc;
 }
 
 #chat-header{
@@ -47,13 +50,33 @@
   color: #555;
 }
 
+#chat-container{
+  background-color: white;
+}
+
+#output{
+  overflow: scroll;
+  height: 50vh;
+  max-height: 50vh;
+}
+
 #output div{
+  display: flex;
+  width: 100%;
+}
+
+
+#output div section {
+  width: 100%;
+}
+
+#output div section .text-message{
   border-radius: 0px 30px 30px 30px;
   background-color: #B89BE8;
   width: 60%;
 }
 
-#output div p{
+#output div section .text-message p{
   color: black;
   padding: 14px 0;
   margin: 0 20px;
@@ -61,18 +84,23 @@
   background-color: #B89BE8;
 }
 
-#time{
+#output div section #time{
   margin-left: 15px;
   font-size: 12px;
   color: black;
   margin-bottom: 20px;
 }
 
-#output img{
-  color: #aaa;
-  margin: 0 20px;
-  width: 50%;
+#output div #icon-message{
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
+
+#output div section img{
+  width: 30%;
+}
+
 
 #output a{
   color: #616161;
@@ -105,7 +133,7 @@ input{
 .file-select {
   position: relative;
   display: inline-block;
-  margin: 20px;
+  margin: 10px 20px;
 }
 
 .file-select::before {
